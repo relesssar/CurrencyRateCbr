@@ -33,10 +33,18 @@ class DailyRateTest extends TestCase
         $this->assertEquals(200, $request->getResponseCode());
         $this->assertEquals(null, $request->getRequestError());
 
+        $request->execute('http://www.cbr.ru/scripts/XML_daily_nope.asp');
+        $this->assertEquals(200, $request->getResponseCode());
+        $this->assertEquals(null, $request->getRequestError());
+        $body = $request->getResponseBody();
+        $this->assertTrue((bool)preg_match('|Ошибка 404|', $body));
+
+
         $request->execute('sdsds');
         $this->assertEquals(null, $request->getResponseCode());
         $this->assertEquals(null, $request->getResponseCode());
         $this->assertInstanceOf(\Exception::class, $request->getRequestError());
+        $this->assertEquals(null, $request->getResponseBody());
         $this->assertEquals('cURL error 6: Could not resolve host: sdsds (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)', $request->getRequestError()->getMessage());
 
         $request->execute(11);
