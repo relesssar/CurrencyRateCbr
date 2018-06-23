@@ -19,17 +19,78 @@ use GuzzleHttp\Client;
 
 class Request
 {
-    protected $uriXmlDaily = 'http://www.cbr.ru/scripts/XML_daily.asp';
+    protected $uriList = [
+        1 => 'http://www.cbr.ru/scripts/XML_daily.asp'
+    ];
     protected $query = [];
 
-    public function execute()
+    const URI_XML_DAILY = 1;
+
+    /**
+     * @var \Exception
+     */
+    protected $requestError = null;
+
+    protected $responseCode = null;
+    protected $responseContentType = null;
+    protected $responseBody = null;
+
+    public function execute($uri = null)
     {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', $this->buildUri());
-        $code = $res->getStatusCode(); // 200
-        $contentType = $res->getHeaderLine('content-type'); // application/xml; charset=windows-1251
-        $body = $res->getBody(); // xml body
+        if (!$uri) {
+            $uri = self::URI_XML_DAILY;
+        }
+
+        try {
+            $client = new Client();
+            $res = $client->request('GET', $this->buildUri($uri));
+            $this->requestError = null;
+            $this->responseCode = $res->getStatusCode(); // 200
+            $this->responseContentType = $res->getHeaderLine('content-type'); // application/xml; charset=windows-1251
+            $this->responseBody = $res->getBody()->getContents(); // xml body
+            return true;
+
+        } catch (\Exception $e) {
+            $this->responseCode = null;
+            $this->responseContentType = null;
+            $this->responseBody = null;
+            $this->requestError = $e;
+        }
+        return false;
     }
+
+    /**
+     * @return \Exception|null
+     */
+    public function getRequestError()
+    {
+        return $this->requestError;
+    }
+
+    /**
+     * @return null|int
+     */
+    public function getResponseCode()
+    {
+        return $this->responseCode;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getResponseContentType()
+    {
+        return $this->responseContentType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getResponseBody()
+    {
+        return $this->responseBody;
+    }
+
 
     public function addQuery($key, $value)
     {
@@ -37,9 +98,15 @@ class Request
         return $this;
     }
 
-    protected function buildUri()
+    protected function buildUri($uri)
     {
-        $path = $this->uriXmlDaily;
+        if (is_string($uri)) {
+            $path = $uri;
+        } else if (array_key_exists($uri, $this->uriList)) {
+            $path = $this->uriList[$uri];
+        } else {
+            throw new \Exception('Bad uri');
+        }
         if ($this->query) {
             $path .= '?' . http_build_query($this->query);
         }

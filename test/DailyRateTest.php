@@ -15,9 +15,33 @@
 
 
 namespace AndyDuneTest\CurrencyRateCbr;
+use AndyDune\CurrencyRateCbr\Request;
+use PHPUnit\Framework\TestCase;
 
-
-class DailyRateTest
+class DailyRateTest extends TestCase
 {
+    public function testRequest()
+    {
+        $request = new Request();
+        $request->execute();
+        $this->assertEquals(200, $request->getResponseCode());
+        $this->assertEquals(null, $request->getRequestError());
+        $body = $request->getResponseBody();
+        $this->assertTrue((bool)preg_match('|<\?xml version="1.0"|', $body));
 
+        $request->execute(Request::URI_XML_DAILY);
+        $this->assertEquals(200, $request->getResponseCode());
+        $this->assertEquals(null, $request->getRequestError());
+
+        $request->execute('sdsds');
+        $this->assertEquals(null, $request->getResponseCode());
+        $this->assertEquals(null, $request->getResponseCode());
+        $this->assertInstanceOf(\Exception::class, $request->getRequestError());
+        $this->assertEquals('cURL error 6: Could not resolve host: sdsds (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)', $request->getRequestError()->getMessage());
+
+        $request->execute(11);
+        $this->assertEquals(null, $request->getResponseCode());
+        $this->assertInstanceOf(\Exception::class, $request->getRequestError());
+
+    }
 }
