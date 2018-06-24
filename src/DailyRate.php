@@ -14,11 +14,71 @@
  */
 
 
-
 namespace AndyDune\CurrencyRateCbr;
 
 
 class DailyRate
 {
+    /**
+     * @var \DateTime|null
+     */
+    protected $date = null;
+
+    /**
+     * @var Request
+     */
+    protected $request = null;
+
+
+    protected function retrieve()
+    {
+        $request = $this->getRequest();
+        if ($this->date) {
+            $request->addQuery('date_req', $this->date->format('d/m/Y'));
+        }
+        $request->execute(Request::URI_XML_DAILY);
+        if (!$request->getRequestError()) {
+            return false;
+        }
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        if ($this->request) {
+            return $this->request;
+        }
+        return new Request();
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return DailyRate
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
 
 }

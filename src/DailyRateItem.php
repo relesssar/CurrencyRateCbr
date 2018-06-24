@@ -83,6 +83,64 @@ class DailyRateItem
         return $this->value;
     }
 
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @param mixed $valueId
+     */
+    public function setValueId($valueId)
+    {
+        $this->valueId = $valueId;
+    }
+
+    /**
+     * @param mixed $numCode
+     */
+    public function setNumCode($numCode)
+    {
+        $this->numCode = $numCode;
+    }
+
+    /**
+     * @param mixed $charCode
+     */
+    public function setCharCode($charCode)
+    {
+        $this->charCode = $charCode;
+    }
+
+    /**
+     * @param mixed $nominal
+     */
+    public function setNominal($nominal)
+    {
+        $this->nominal = $nominal;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+
+
 
 
 }
