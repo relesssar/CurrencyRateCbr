@@ -29,17 +29,36 @@ class DailyRate
      */
     protected $request = null;
 
+    protected $data;
 
-    protected function retrieve()
+
+    public function retrieve()
     {
         $request = $this->getRequest();
         if ($this->date) {
             $request->addQuery('date_req', $this->date->format('d/m/Y'));
         }
         $request->execute(Request::URI_XML_DAILY);
-        if (!$request->getRequestError()) {
+        if ($request->getRequestError() or $request->getResponseCode() != 200) {
             return false;
         }
+        $xml = $request->getResponseBody();
+        if (!preg_match('|<?xml version="1.0"|i', $xml)) {
+            return false;
+        }
+        $parser = new ParseXml();
+        if ($this->data = $parser->parseDailyXml($xml)) {
+            return true;
+        }
+    }
+
+    public function get($charCode)
+    {
+        $charCode = strtoupper($charCode);
+        if (array_key_exists($charCode, $this->data)) {
+            return $this->data[$charCode];
+        }
+        return null;
     }
 
     /**

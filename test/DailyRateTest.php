@@ -16,6 +16,7 @@
 
 namespace AndyDuneTest\CurrencyRateCbr;
 
+use AndyDune\CurrencyRateCbr\DailyRate;
 use AndyDune\CurrencyRateCbr\DailyRateItem;
 use AndyDune\CurrencyRateCbr\ParseXml;
 use AndyDune\CurrencyRateCbr\Request;
@@ -65,6 +66,22 @@ class DailyRateTest extends TestCase
         $this->assertArrayHasKey('USD', $data);
         /** @var DailyRateItem $item */
         $item = $data['USD'];
+        $this->assertInstanceOf(\DateTime::class, $item->getDate());
+        $this->assertNotEquals(null, $item->getCharCode());
+        $this->assertNotEquals(null, $item->getValue());
+        $this->assertNotEquals(null, $item->getNominal());
+        $this->assertNotEquals(null, $item->getName());
+        $this->assertNotEquals(null, $item->getValueId());
+        $this->assertNotEquals(null, $item->getNumCode());
+    }
+
+    public function testDailyRate()
+    {
+        $rate = new DailyRate();
+        $result = $rate->retrieve();
+        $this->assertTrue($result);
+
+        $item = $rate->get('usd');
         $this->assertInstanceOf(\DateTime::class, $item->getDate());
         $this->assertNotEquals(null, $item->getCharCode());
         $this->assertNotEquals(null, $item->getValue());
