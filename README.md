@@ -8,4 +8,29 @@
 
 Библиотека для получения и парсинга XML-данных о курсах валют.
 
-Источник: [Получение данных, используя XML](http://www.cbr.ru/development/SXML/)
+Источник данных: [Получение данных, используя XML](http://www.cbr.ru/development/SXML/)
+
+
+Installation
+------------
+
+Installation using composer:
+
+```
+composer require andydune/currency-rate-cbr
+```
+Or if composer was not installed globally:
+```
+php composer.phar require andydune/currency-rate-cbr
+```
+Or edit your `composer.json`:
+```
+"require" : {
+     "andydune/currency-rate-cbr": "^1"
+}
+
+```
+And execute command:
+```
+php composer.phar update
+```
