@@ -29,6 +29,11 @@ class DailyRate
      */
     protected $request = null;
 
+    /**
+     * @var DailyRateParseXml
+     */
+    protected $xmlParser = null;
+
     protected $data;
 
 
@@ -46,8 +51,8 @@ class DailyRate
         if (!preg_match('|<?xml version="1.0"|i', $xml)) {
             return false;
         }
-        $parser = new ParseXml();
-        if ($this->data = $parser->parseDailyXml($xml)) {
+        $parser = $this->getXmlParser();
+        if ($this->data = $parser->parse($xml)) {
             return true;
         }
     }
@@ -60,6 +65,29 @@ class DailyRate
         }
         return null;
     }
+
+    /**
+     * @return DailyRateParseXml
+     */
+    public function getXmlParser()
+    {
+        if (!$this->xmlParser) {
+            $this->xmlParser = new DailyRateParseXml();
+        }
+        return $this->xmlParser;
+    }
+
+    /**
+     * @param DailyRateParseXml $xmlParser
+     * @return DailyRate
+     */
+    public function setXmlParser($xmlParser)
+    {
+        $this->xmlParser = $xmlParser;
+        return $this;
+    }
+
+
 
     /**
      * @return Request

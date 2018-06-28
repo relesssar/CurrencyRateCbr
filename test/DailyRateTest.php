@@ -18,7 +18,7 @@ namespace AndyDuneTest\CurrencyRateCbr;
 
 use AndyDune\CurrencyRateCbr\DailyRate;
 use AndyDune\CurrencyRateCbr\DailyRateItem;
-use AndyDune\CurrencyRateCbr\ParseXml;
+use AndyDune\CurrencyRateCbr\DailyRateParseXml;
 use AndyDune\CurrencyRateCbr\Request;
 use PHPUnit\Framework\TestCase;
 
@@ -61,8 +61,8 @@ class DailyRateTest extends TestCase
     {
         $xmlStr = file_get_contents(__DIR__ . '/xml_daily.xml');
         //$xmlStr = iconv('windows-1251', 'UTF-8', $xmlStr);
-        $parse = new ParseXml();
-        $data = $parse->parseDailyXml($xmlStr);
+        $parse = new DailyRateParseXml();
+        $data = $parse->parse($xmlStr);
         $this->assertArrayHasKey('USD', $data);
         /** @var DailyRateItem $item */
         $item = $data['USD'];

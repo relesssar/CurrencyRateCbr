@@ -13,9 +13,9 @@
 namespace AndyDune\CurrencyRateCbr;
 
 
-class ParseXml
+class DailyRateParseXml
 {
-    public function parseDailyXml($xml)
+    public function parse($xml)
     {
         $data = [];
         $simple = new \SimpleXMLElement($xml);
