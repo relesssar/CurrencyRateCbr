@@ -39,6 +39,7 @@ class DailyRate
 
     public function retrieve()
     {
+        $this->data = [];
         $request = $this->getRequest();
         if ($this->date) {
             $request->addQuery('date_req', $this->date->format('d/m/Y'));
@@ -55,6 +56,7 @@ class DailyRate
         if ($this->data = $parser->parse($xml)) {
             return true;
         }
+        return false;
     }
 
     public function get($charCode)
@@ -86,8 +88,6 @@ class DailyRate
         $this->xmlParser = $xmlParser;
         return $this;
     }
-
-
 
     /**
      * @return Request
@@ -121,11 +121,9 @@ class DailyRate
      * @param \DateTime $date
      * @return DailyRate
      */
-    public function setDate($date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
         return $this;
     }
-
-
 }

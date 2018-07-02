@@ -11,10 +11,10 @@
 Источник данных: [Получение данных, используя XML](http://www.cbr.ru/development/SXML/)
 
 
-Installation
+Уставнока
 ------------
 
-Installation using composer:
+Уставнока через композер:
 
 ```
 composer require andydune/currency-rate-cbr
@@ -30,7 +30,31 @@ Or edit your `composer.json`:
 }
 
 ```
-And execute command:
+Запустить команду:
 ```
 php composer.phar update
+```
+
+Использование
+--------------
+
+```php
+use AndyDune\CurrencyRateCbr\DailyRate;
+
+$rate = new DailyRate();
+$rate->setDate(new \DateTime()); // не оюязательно - по умолчанию используется текущая дата 
+$isOk = $rate->retrieve(); // true если данные успешно получены
+
+// Извлекаем курс доллара 
+
+/** @var DailyRateItem $item */
+$item = $rate->get('usd'); // код валюты, регистр не важен
+
+$item->getDate(); // \DateTime::class - объект даты
+$item->getCharCode(); // код валюты: USD
+$item->getValue(); // цена: 63,1394
+$item->getNominal(); // номинал: 1
+$item->getName(); // наименование: Доллар США
+$item->getValueId(); // ID валюты: R01235
+$item->getNumCode(); // числовой код: 208
 ```
