@@ -42,7 +42,7 @@ php composer.phar update
 use AndyDune\CurrencyRateCbr\DailyRate;
 
 $rate = new DailyRate();
-$rate->setDate(new \DateTime()); // не оюязательно - по умолчанию используется текущая дата 
+$rate->setDate(new \DateTime()); // не обязательно - по умолчанию используется текущая дата 
 $isOk = $rate->retrieve(); // true если данные успешно получены
 
 // Извлекаем курс доллара 

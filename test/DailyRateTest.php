@@ -90,5 +90,9 @@ class DailyRateTest extends TestCase
         $this->assertNotEquals(null, $item->getValueId());
         $this->assertNotEquals(null, $item->getNumCode());
 
+
+
+        $item = $rate->get('no_exist');
+        $this->assertEquals(null, $item);
     }
 }
