@@ -17,16 +17,16 @@
 Уставнока через композер:
 
 ```
-composer require andydune/currency-rate-cbr
+composer require relesssar/currency-rate-cbr
 ```
 Or if composer was not installed globally:
 ```
-php composer.phar require andydune/currency-rate-cbr
+php composer.phar require relesssar/currency-rate-cbr
 ```
 Or edit your `composer.json`:
 ```
 "require" : {
-     "andydune/currency-rate-cbr": "^1"
+     "relesssar/currency-rate-cbr": "^1"
 }
 
 ```
