@@ -1,6 +1,6 @@
 {
-    "name": "andydune/currency-rate-cbr",
-    "description": "Code for obtaining and parsing XML-data on currency rates of the Central Bank of the Russian Federation.",
+    "name": "relessar/currency-rate-cbr",
+    "description": "Code for obtaining and parsing XML-data on currency rates of the Central Bank of the Russian Federation. Fork from https://github.com/AndyDune/CurrencyRateCbr",
     "license": "MIT",
     "keywords": [
         "php"
@@ -11,7 +11,7 @@
             "email": "info@rznw.ru"
         }
     ],
-    "homepage": "https://github.com/AndyDune/CurrencyRateCbr",
+    "homepage": "https://github.com/relessar/CurrencyRateCbr",
     "autoload": {
         "psr-4": {
             "AndyDune\\CurrencyRateCbr\\": "src/"
@@ -19,7 +19,7 @@
     },
     "require": {
         "php": ">=5.6",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^7.8"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7.15"
