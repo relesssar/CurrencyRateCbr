@@ -20,11 +20,13 @@ use GuzzleHttp\Client;
 class Request
 {
     protected $uriList = [
-        1 => 'http://www.cbr.ru/scripts/XML_daily.asp'
+        1 => 'https://www.cbr.ru/scripts/XML_daily.asp',
+        2 => 'https://www.cbr.ru/scripts/XML_valFull.asp'
     ];
     protected $query = [];
 
     const URI_XML_DAILY = 1;
+    const URI_XML_VALFULL = 2;
 
     /**
      * @var \Exception
